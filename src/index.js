@@ -1,14 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core/styles";
+
+//components
+import Signin from "./components/authPages/Signin";
+import Home from "./pages/Home";
+
+// theme and styles imports
+import Theme from "../src/styles/Theme.js";
+// import "./styles/scss/main.scss";
+
+const login = localStorage.getItem("isLoggedIn");
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={Theme}>
+      {login ? (
+        <Router>
+          <Switch>
+            <Route path="/sign-in" component={Signin}></Route>
+            <Route path="/home" component={Home}></Route>
+          </Switch>
+        </Router>
+      ) : (
+        <Router>
+          <Switch>
+            <Route path="/sign-in" component={Signin}></Route>
+            <Route path="/home" component={Home}></Route>
+          </Switch>
+        </Router>
+      )}
+    </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
